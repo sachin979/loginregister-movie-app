@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="sticky">
+        <Toolbar variant="dense">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
             <Typography>Login & Register</Typography>
           </Link>

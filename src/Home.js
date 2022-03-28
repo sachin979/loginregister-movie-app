@@ -8,10 +8,10 @@ function Home() {
   return (
     <div>
       <NavBar />
-      <Button variant="contained" href="\register">
+      <Button color="primary" variant="contained" href="\register">
         Register
       </Button>
-      <Button variant="contained" href="\login">
+      <Button color="primary" variant="contained" href="\login">
         Login
       </Button>
     </div>
