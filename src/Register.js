@@ -1,12 +1,29 @@
-import { Grid, Box, makeStyles, TextField, Button, Paper, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Box,
+  makeStyles,
+  TextField,
+  Button,
+  Paper,
+  Typography,
+  Snackbar,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
 import NavBar from "./NavBar";
 import bg1 from "./images/bg1.jpg";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "88vh",
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
   },
   spancl: {
     backgroundImage: `url(${bg1})`,
@@ -31,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = () => {
+  const [SnackMsg, setSnackMsg] = useState("");
+  const [backdropOpen, setbackdropOpen] = useState(false);
+  const [snackbarOpen, setsnackbarOpen] = useState(false);
   const config = {
     url: "http://localhost:4000/users/register",
     headers: {
@@ -59,47 +79,86 @@ const Register = () => {
   });
 
   const classes = useStyles();
-  const callApi = () => {
-    if (Object.values(errObj).every((item) => item === false)) {
-      console.log("before epi call");
-      axios
-        .post(
-          config.url,
-          {
-            firstName: inputObj.fname,
-            lastName: inputObj.lname,
-            username: inputObj.username,
-            password: inputObj.passw,
-          },
-          { headers: config.headers }
-        )
-        .then((res) => {
-          console.log(res);
+  const callApi = async () => {
+    setbackdropOpen(true);
+    console.log("before epi call " + snackbarOpen);
+    const resp = await axios
+      .post(
+        config.url,
+        {
+          firstName: inputObj.fname,
+          lastName: inputObj.lname,
+          username: inputObj.username,
+          password: inputObj.passw,
+        },
+        { headers: config.headers }
+      )
+      .then((res) => {
+        console.log(res);
+        setSnackMsg("Registered Successfully!");
+        setInputobj({
+          fname: "",
+          lname: "",
+          username: "",
+          passw: "",
+          confpassw: "",
         });
-    }
+      })
+      .catch((err) => {
+        console.log(err);
+        setSnackMsg("Something went wrong!");
+      });
+    //console.log(resp.data);
+    setbackdropOpen(false);
+    setsnackbarOpen(true);
   };
 
   const registerBtn = () => {
+    var errFlag = false;
+    var localErrObj = {
+      fnameerr: false,
+      lnameerr: false,
+      usernameerr: false,
+      passwerr: false,
+      confpasswerr: false,
+    };
     if (!/^[a-zA-Z ]+$/.test(inputObj.fname)) {
-      setErrobj({ ...errObj, fnameerr: true });
-      console.log(errObj);
-    } else if (!/^[a-zA-Z ]+$/.test(inputObj.lname)) {
-      setErrobj({ ...errObj, lnameerr: true });
-    } else if (!/^[a-zA-Z_0-9]+$/.test(inputObj.username)) {
-      setErrobj({ ...errObj, usernameerr: true });
-    } else if (!/^(?=.*[a-z])(?=.*[0-9]).{6,10}$/.test(inputObj.passw)) {
-      setErrobj({ ...errObj, passwerr: true });
-    } else if (inputObj.passw !== inputObj.confpassw) {
-      setErrobj({ ...errObj, passwerr: true });
-      setErrobj({ ...errObj, confpasswerr: true });
+      localErrObj.fnameerr = true;
+      errFlag = true;
     }
-    console.log(errObj);
-    console.log(Object.values(errObj).every((item) => item === false));
-    callApi();
+    if (!/^[a-zA-Z ]+$/.test(inputObj.lname)) {
+      localErrObj.lnameerr = true;
+      errFlag = true;
+    }
+    if (!/^[a-zA-Z_0-9]+$/.test(inputObj.username)) {
+      localErrObj.usernameerr = true;
+      errFlag = true;
+    }
+    if (!/^(?=.*[a-z])(?=.*[0-9]).{6,10}$/.test(inputObj.passw)) {
+      localErrObj.passwerr = true;
+      errFlag = true;
+    }
+    if (inputObj.passw !== inputObj.confpassw) {
+      localErrObj.passwerr = true;
+      localErrObj.confpasswerr = true;
+      errFlag = true;
+    }
+    setErrobj({
+      fnameerr: localErrObj.fnameerr,
+      lnameerr: localErrObj.lnameerr,
+      usernameerr: localErrObj.usernameerr,
+      passwerr: localErrObj.passwerr,
+      confpasswerr: localErrObj.confpasswerr,
+    });
+    if (errFlag === false) {
+      callApi();
+    }
   };
+
   return (
     <div>
       <NavBar />
+
       <Grid container className={classes.root} direction="column" justifyContent="center">
         <Grid item container justifyContent="center">
           <Grid item xs={6}>
@@ -111,6 +170,9 @@ const Register = () => {
                       Welcome to our Portal
                     </Typography>
                     <Typography variant="body1">Get Started</Typography>
+                    <Button variant="outlined" href="/login" type="link">
+                      Login
+                    </Button>
                   </Box>
                 </Grid>
                 <Grid
@@ -127,6 +189,7 @@ const Register = () => {
                   <Grid item>
                     <TextField
                       name="fname"
+                      value={inputObj.fname}
                       error={errObj.fnameerr}
                       variant="outlined"
                       label="First Name"
@@ -138,6 +201,7 @@ const Register = () => {
                   <Grid item>
                     <TextField
                       name="lname"
+                      value={inputObj.lname}
                       error={errObj.lnameerr}
                       variant="outlined"
                       label="Last Name"
@@ -149,6 +213,7 @@ const Register = () => {
                   <Grid item>
                     <TextField
                       name="username"
+                      value={inputObj.username}
                       error={errObj.usernameerr}
                       variant="outlined"
                       label="Username"
@@ -160,6 +225,7 @@ const Register = () => {
                   <Grid item>
                     <TextField
                       name="passw"
+                      value={inputObj.passw}
                       error={errObj.passwerr}
                       variant="outlined"
                       label="Password"
@@ -172,6 +238,7 @@ const Register = () => {
                   <Grid item>
                     <TextField
                       name="confpassw"
+                      value={inputObj.confpassw}
                       error={errObj.confpasswerr}
                       variant="outlined"
                       label="Confirm Password"
@@ -189,6 +256,25 @@ const Register = () => {
                 </Grid>
               </Grid>
             </Paper>
+            <Backdrop className={classes.backdrop} open={backdropOpen}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+            <Snackbar
+              open={snackbarOpen}
+              message={SnackMsg}
+              action={
+                <React.Fragment>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={() => setsnackbarOpen(false)}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            ></Snackbar>
           </Grid>
         </Grid>
       </Grid>
