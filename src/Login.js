@@ -7,7 +7,7 @@ import bg1 from "./images/bg1.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "80vh",
+    height: "85vh",
   },
 
   left: {
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
     flexDirection: "column",
+    justifyContent: "center",
   },
   right: {
     padding: theme.spacing(2),
@@ -62,17 +63,17 @@ export default function Login() {
     <div>
       <NavBar />
       <Grid container className={classes.root} direction="column" justifyContent="center">
-        <Grid item container justifyContent="center">
-          <Grid item xs={6}>
+        <Grid item container justifyContent="center" style={{ height: "80vh" }} alignItems="center">
+          <Grid item xs={4}>
             <Paper elevation={12}>
               <Grid container direction="row" justifyContent="center">
-                <Grid item xs={4}>
+                <Grid item xs={5}>
                   <Box component="span" className={classes.left}>
                     <Typography variant="h4">Login</Typography>
                     <Typography variant="subtitle1">We are happy to see you back</Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={8} container justifyContent="center">
+                <Grid item xs={7} container justifyContent="center">
                   <Grid item>
                     <Typography>Login</Typography>
                   </Grid>
