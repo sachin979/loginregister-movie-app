@@ -1,9 +1,19 @@
-import { Grid, Box, Paper, TextField, Button, makeStyles, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Box,
+  Paper,
+  TextField,
+  Button,
+  makeStyles,
+  Typography,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
 import NavBar from "./NavBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import bg1 from "./images/bg1.jpg";
+import bg1 from "./images/bg4.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,26 +29,35 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     flexDirection: "column",
     justifyContent: "center",
+    color: "white",
   },
   right: {
     padding: theme.spacing(2),
   },
+  backdrop: {
+    zIndex: "100",
+  },
 }));
 
 export default function Login() {
+  const [errObj, seterrObj] = useState({
+    usernameerr: false,
+    passwerr: false,
+  });
+  useEffect(() => {
+    console.log("useffct");
+  }, [errObj]);
+  const [backdropOpen, setbackdropOpen] = useState(false);
   const classes = useStyles();
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [passw, setPassw] = useState("");
-  const loginBtn = () => {
-    console.log("login");
-    console.log(username);
-    console.log(passw);
+  const callApi = async () => {
+    setbackdropOpen(true);
     var data = JSON.stringify({
       username: username,
       password: passw,
     });
-    console.log(data);
 
     var config = {
       method: "post",
@@ -48,16 +67,28 @@ export default function Login() {
       },
       data: data,
     };
-
-    axios
+    const resp = await axios
       .post(config.url, data, { headers: config.headers })
-      .then(function (response) {
+      .then((response) => {
         console.log(JSON.stringify(response.data));
+        sessionStorage.setItem("token", response.data.token);
         history.push("/movies");
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch((err) => console.log(err));
+
+    setbackdropOpen(false);
+  };
+  const loginBtn = () => {
+    if (username.length === 0) {
+      console.log({ ...errObj });
+      seterrObj((errObj) => ({ ...errObj, usernameerr: true }));
+    }
+    if (passw.length === 0) {
+      seterrObj((errObj) => ({ ...errObj, passwerr: true }));
+    }
+    if (username.length > 0 && passw.length > 0) {
+      callApi();
+    }
   };
   return (
     <div>
@@ -86,6 +117,7 @@ export default function Login() {
                   >
                     <Grid item>
                       <TextField
+                        error={errObj.usernameerr}
                         variant="outlined"
                         label="Username"
                         onChange={(e) => setUsername(e.target.value)}
@@ -94,6 +126,7 @@ export default function Login() {
                     </Grid>
                     <Grid item>
                       <TextField
+                        error={errObj.passwerr}
                         variant="outlined"
                         label="Password"
                         type="password"
@@ -110,6 +143,9 @@ export default function Login() {
                 </Grid>
               </Grid>
             </Paper>
+            <Backdrop className={classes.backdrop} open={backdropOpen}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
           </Grid>
         </Grid>
       </Grid>

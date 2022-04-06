@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import NavBar from "./NavBar";
-import bg1 from "./images/bg1.jpg";
+import bg1 from "./images/bg4.jpg";
 import React, { useState } from "react";
 import axios from "axios";
 import IconButton from "@material-ui/core/IconButton";
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+    color: "white",
   },
 
   left: {
@@ -124,35 +125,43 @@ const Register = () => {
     };
     if (!/^[a-zA-Z ]+$/.test(inputObj.fname)) {
       localErrObj.fnameerr = true;
+      setErrobj((errObj) => ({ ...errObj, fnameerr: true }));
       errFlag = true;
     }
     if (!/^[a-zA-Z ]+$/.test(inputObj.lname)) {
       localErrObj.lnameerr = true;
+      setErrobj((errObj) => ({ ...errObj, lnameerr: true }));
       errFlag = true;
     }
     if (!/^[a-zA-Z_0-9]+$/.test(inputObj.username)) {
       localErrObj.usernameerr = true;
+      setErrobj((errObj) => ({ ...errObj, usernameerr: true }));
       errFlag = true;
     }
     if (!/^(?=.*[a-z])(?=.*[0-9]).{6,10}$/.test(inputObj.passw)) {
+      setErrobj((errObj) => ({ ...errObj, passwerr: true }));
       localErrObj.passwerr = true;
       errFlag = true;
     }
-    if (inputObj.passw !== inputObj.confpassw) {
+    if (inputObj.passw !== inputObj.confpassw || inputObj.confpassw === "") {
       localErrObj.passwerr = true;
       localErrObj.confpasswerr = true;
+      setErrobj((errObj) => ({ ...errObj, confpasswerr: true }));
+      setErrobj((errObj) => ({ ...errObj, passwerr: true }));
+
       errFlag = true;
     }
-    setErrobj({
+    /* setErrobj({
       fnameerr: localErrObj.fnameerr,
       lnameerr: localErrObj.lnameerr,
       usernameerr: localErrObj.usernameerr,
       passwerr: localErrObj.passwerr,
       confpasswerr: localErrObj.confpasswerr,
-    });
+    });*/
     if (errFlag === false) {
       callApi();
     }
+    console.log(errObj);
   };
 
   return (
