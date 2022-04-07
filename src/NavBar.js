@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <div>
+    <div style={{ paddingBottom: "10px" }}>
       <AppBar position="sticky">
         <Toolbar variant="dense">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>

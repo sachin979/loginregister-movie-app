@@ -3,6 +3,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
 import Movie from "./Movie";
+import SingleMovie from "./SingleMovie";
 const RoutesFunc = () => {
   return (
     <div>
@@ -19,6 +20,9 @@ const RoutesFunc = () => {
           </Route>
           <Route path="/movies">
             <Movie />
+          </Route>
+          <Route path="/moviepage/:id">
+            <SingleMovie />
           </Route>
         </Switch>
       </Router>
