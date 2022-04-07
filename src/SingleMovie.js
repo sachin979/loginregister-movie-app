@@ -24,7 +24,7 @@ function SingleMovie() {
   return (
     <div>
       <NavBar />
-      <Container maxWidth="md" style={{ backgroundColor: "#CCC9DC" }}>
+      <Container maxWidth="lg" style={{ backgroundColor: "#CCC9DC" }}>
         {movieDetails ? (
           <Grid container direction="row">
             <Grid item md={4}>
@@ -34,12 +34,13 @@ function SingleMovie() {
               />
             </Grid>
             <Grid item md={8}>
-              <Typography>{movieDetails.original_title}</Typography>
-              <Typography>{movieDetails.status}</Typography>
-              <Typography>{movieDetails.tagline}</Typography>
-              <Typography>{movieDetails.vote_average}</Typography>
-              <Typography>{movieDetails.vote_count}</Typography>
-              <Typography>{movieDetails.overview}</Typography>
+              <Typography variant="h2">{movieDetails.original_title}</Typography>
+              <Typography variant="subtitle1">{movieDetails.tagline}</Typography>
+              <Typography variant="body">Status:{movieDetails.status}</Typography>
+
+              <Typography>Ratings:{movieDetails.vote_average}</Typography>
+              <Typography>No. of Votes:{movieDetails.vote_count}</Typography>
+              <Typography>Overview:{movieDetails.overview}</Typography>
             </Grid>
           </Grid>
         ) : (
