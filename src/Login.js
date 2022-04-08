@@ -95,7 +95,7 @@ export default function Login() {
       <NavBar />
       <Grid container className={classes.root} direction="column" justifyContent="center">
         <Grid item container justifyContent="center" style={{ height: "80vh" }} alignItems="center">
-          <Grid item xs={4}>
+          <Grid item lg={4} xs={8}>
             <Paper elevation={12}>
               <Grid container direction="row" justifyContent="center">
                 <Grid item xs={5}>

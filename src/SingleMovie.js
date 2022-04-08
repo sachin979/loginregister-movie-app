@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Container, Grid, Box, Typography, makeStyles, Chip } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Box,
+  Typography,
+  makeStyles,
+  Chip,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
 import NavBar from "./NavBar";
 
 const useStyles = makeStyles((theme) => ({
   movietext: {
     paddingTop: "15px",
+  },
+  movielasttext: {
+    paddingBottom: "10px",
   },
   chip: {
     marginRight: "10px",
@@ -24,9 +36,14 @@ const useStyles = makeStyles((theme) => ({
   ratingright: {
     minWidth: "125px",
   },
+  backdrop: {
+    zIndex: "100",
+  },
 }));
 
 function SingleMovie() {
+  const [isLoading, setisLoading] = useState(false);
+  const [backdropOpen, setbackdropOpen] = useState(true);
   const classes = useStyles();
   const { id } = useParams();
   const [movieDetails, setmovieDetails] = useState();
@@ -46,7 +63,7 @@ function SingleMovie() {
   return (
     <div>
       <NavBar />
-      <Container maxWidth="md" style={{ backgroundColor: "#CCC9DC" }}>
+      <Container maxWidth="md">
         {movieDetails ? (
           <Grid container direction="row" justifyContent="center">
             <Grid item sm={5}>
@@ -91,7 +108,7 @@ function SingleMovie() {
                 <Box className={classes.ratingleft}>No. of Votes:</Box>
                 <Box className={classes.ratingright}>{movieDetails.vote_count}</Box>
               </div>
-              <Box className={classes.movietext}>
+              <Box className={`${classes.movietext} ${classes.movielasttext}`}>
                 {movieDetails.genres.map((gen) => {
                   return (
                     <Chip key={gen.id} label={gen.name} color="primary" className={classes.chip} />
@@ -101,7 +118,9 @@ function SingleMovie() {
             </Grid>
           </Grid>
         ) : (
-          ""
+          <Backdrop className={classes.backdrop} open={backdropOpen}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
         )}
       </Container>
     </div>

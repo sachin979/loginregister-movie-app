@@ -1,11 +1,31 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import { useHistory, Link as RouteLink } from "react-router-dom";
-import { Card, Grid, Paper, Box, Typography, Badge, Container, Link } from "@material-ui/core";
+import {
+  Card,
+  Grid,
+  Paper,
+  Box,
+  Typography,
+  Badge,
+  Container,
+  Link,
+  Backdrop,
+  CircularProgress,
+  makeStyles,
+} from "@material-ui/core";
 import axios from "axios";
 import Pagination from "@material-ui/lab/Pagination";
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: "100",
+  },
+}));
 const Movie = () => {
+  const classes = useStyles();
+  const [isLoading, setisLoading] = useState(false);
+  const [backdropOpen, setbackdropOpen] = useState(false);
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   var api =
@@ -17,18 +37,21 @@ const Movie = () => {
 
   const history = useHistory();
   const callApi = async () => {
+    setbackdropOpen(true);
     const resp = await axios.get(api).then((res) => {
       setMovies(res.data.results);
       console.log(res.data);
     });
+    setbackdropOpen(false);
   };
 
   useEffect(() => {
     if (sessionStorage.getItem("token") === null) {
-      history.push("/login");
+      //history.push("/login");
     } else {
       callApi();
     }
+    callApi();
   }, []);
   useEffect(() => {
     callApi();
@@ -69,16 +92,22 @@ const Movie = () => {
               })
             : ""}
         </Grid>
-        <Grid container justifyContent="center" style={{ padding: "20px 0" }}>
-          <Grid item>
-            <Pagination
-              count={10}
-              color="primary"
-              page={page}
-              onChange={(e, page) => setPageno(page)}
-            />
+        {!backdropOpen ? (
+          <Grid container justifyContent="center" style={{ padding: "20px 0" }}>
+            <Grid item>
+              <Pagination
+                count={10}
+                color="primary"
+                page={page}
+                onChange={(e, page) => setPageno(page)}
+              />
+            </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          <Backdrop className={classes.backdrop} open={backdropOpen}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        )}
       </Container>
     </div>
   );
