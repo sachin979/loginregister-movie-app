@@ -170,7 +170,7 @@ const Register = () => {
 
       <Grid container className={classes.root} direction="column" justifyContent="center">
         <Grid item container justifyContent="center">
-          <Grid item xs={6}>
+          <Grid item md={6} sm={8} xs={12}>
             <Paper elevation={4}>
               <Grid container direction="row">
                 <Grid item xs={4}>

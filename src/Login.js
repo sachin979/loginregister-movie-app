@@ -8,12 +8,15 @@ import {
   Typography,
   Backdrop,
   CircularProgress,
+  Snackbar,
 } from "@material-ui/core";
 import NavBar from "./NavBar";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import bg1 from "./images/bg4.jpg";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +50,7 @@ export default function Login() {
   useEffect(() => {
     console.log("useffct");
   }, [errObj]);
+  const [snackbarOpen, setsnackbarOpen] = useState(false);
   const [backdropOpen, setbackdropOpen] = useState(false);
   const classes = useStyles();
   const history = useHistory();
@@ -74,7 +78,10 @@ export default function Login() {
         sessionStorage.setItem("token", response.data.token);
         history.push("/movies");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setsnackbarOpen(true);
+      });
 
     setbackdropOpen(false);
   };
@@ -147,6 +154,22 @@ export default function Login() {
               <CircularProgress color="inherit" />
             </Backdrop>
           </Grid>
+          <Snackbar
+            open={snackbarOpen}
+            message="Invalid username/password"
+            action={
+              <React.Fragment>
+                <IconButton
+                  size="small"
+                  aria-label="close"
+                  color="inherit"
+                  onClick={() => setsnackbarOpen(false)}
+                >
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+          ></Snackbar>
         </Grid>
       </Grid>
     </div>
