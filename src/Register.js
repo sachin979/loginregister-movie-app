@@ -173,20 +173,19 @@ const Register = () => {
           <Grid item md={6} sm={8} xs={12}>
             <Paper elevation={4}>
               <Grid container direction="row">
-                <Grid item xs={4}>
+                <Grid item xs={12} sm={4} md={4}>
                   <Box component="div" className={classes.spancl}>
                     <Typography className={classes.welcome} variant="h4">
                       Welcome to our Portal
                     </Typography>
                     <Typography variant="body1">Get Started</Typography>
-                    <Button variant="outlined" href="/login" type="link">
-                      Login
-                    </Button>
                   </Box>
                 </Grid>
                 <Grid
                   item
-                  xs={8}
+                  xs={12}
+                  sm={8}
+                  md={8}
                   container
                   direction="column"
                   spacing={2}
@@ -261,6 +260,14 @@ const Register = () => {
                     <Button color="primary" variant="contained" onClick={registerBtn}>
                       Register
                     </Button>
+                  </Grid>
+                  <Grid item>
+                    <Typography>
+                      Already registered?{" "}
+                      <Button size="small">
+                        <Link to="/login"> Login Here</Link>
+                      </Button>{" "}
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>

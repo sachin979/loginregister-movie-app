@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chip: {
     marginRight: "10px",
+    marginTop: "10px",
   },
   imag: {
     maxWidth: "100%",
@@ -79,7 +80,7 @@ function SingleMovie() {
               direction="column"
               justifyContent="space-evenly"
               sm={7}
-              style={{ textAlign: "left" }}
+              style={{ textAlign: "left", padding: "0 10px" }}
             >
               <div>
                 <Typography className={classes.movietext} variant="h5">
@@ -96,7 +97,7 @@ function SingleMovie() {
               <Typography
                 className={classes.movietext}
                 variant="subtitle1"
-                style={{ paddingTop: 20, paddingBottom: 20 }}
+                style={{ paddingTop: 20, paddingBottom: 20, textAlign: "justify" }}
               >
                 Overview:{movieDetails.overview}
               </Typography>

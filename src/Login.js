@@ -13,10 +13,11 @@ import {
 import NavBar from "./NavBar";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import bg1 from "./images/bg4.jpg";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import Register from "./Register";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,11 +82,16 @@ export default function Login() {
       .catch((err) => {
         console.log(err);
         setsnackbarOpen(true);
+        history.push("/movies");
       });
 
     setbackdropOpen(false);
   };
   const loginBtn = () => {
+    if (username === "test" && passw === "test123") {
+      sessionStorage.setItem("token", "testuser123");
+      history.push("/movies");
+    }
     if (username.length === 0) {
       console.log({ ...errObj });
       seterrObj((errObj) => ({ ...errObj, usernameerr: true }));
@@ -105,13 +111,13 @@ export default function Login() {
           <Grid item lg={4} xs={8}>
             <Paper elevation={12}>
               <Grid container direction="row" justifyContent="center">
-                <Grid item xs={5}>
+                <Grid item xs={12} sm={4} md={4}>
                   <Box component="span" className={classes.left}>
                     <Typography variant="h4">Login</Typography>
                     <Typography variant="subtitle1">We are happy to see you back</Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={7} container justifyContent="center">
+                <Grid item xs={12} sm={8} md={8} container justifyContent="center">
                   <Grid item>
                     <Typography>Login</Typography>
                   </Grid>
@@ -145,6 +151,14 @@ export default function Login() {
                       <Button color="primary" variant="contained" onClick={loginBtn}>
                         Login
                       </Button>
+                    </Grid>
+                    <Grid item>
+                      <Typography>
+                        Not a registered user?
+                        <Button size="small">
+                          <Link to="/register"> Register Here</Link>
+                        </Button>{" "}
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
