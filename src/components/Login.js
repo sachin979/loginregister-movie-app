@@ -14,7 +14,7 @@ import NavBar from "./NavBar";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
-import bg1 from "./images/bg4.jpg";
+import bg1 from "../images/bg4.jpg";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Register from "./Register";

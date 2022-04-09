@@ -1,5 +1,5 @@
 import "./App.css";
-import RoutesFunc from "./Routes";
+import RoutesFunc from "./routes/Routes";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 

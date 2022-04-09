@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Login from "./Login";
-import Register from "./Register";
-import Home from "./Home";
-import Movie from "./Movie";
-import SingleMovie from "./SingleMovie";
+import Login from "../components/Login";
+import Register from "../components/Register";
+import Home from "../components/Home";
+import Movie from "../components/Movie";
+import SingleMovie from "../components/SingleMovie";
 const RoutesFunc = () => {
   return (
     <div>
