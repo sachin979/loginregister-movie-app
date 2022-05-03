@@ -95,17 +95,12 @@ const Movie = () => {
         {!backdropOpen ? (
           <Grid container justifyContent="center" style={{ padding: "20px 0" }}>
             <Grid item>
-              <Pagination
-                count={10}
-                color="primary"
-                page={page}
-                onChange={(e, page) => setPageno(page)}
-              />
+              <Pagination count={10} page={page} onChange={(e, page) => setPageno(page)} />
             </Grid>
           </Grid>
         ) : (
           <Backdrop className={classes.backdrop} open={backdropOpen}>
-            <CircularProgress color="inherit" />
+            <CircularProgress />
           </Backdrop>
         )}
       </Container>

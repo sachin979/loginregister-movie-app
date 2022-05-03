@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "Raleway";
+  font-family: "Poppins";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,3 +11,4 @@ body {
   /* other formats include: 'woff2', 'truetype, 'opentype',
                             'embedded-opentype', and 'svg' */
 }
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");

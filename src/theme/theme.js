@@ -1,15 +1,14 @@
 import React from "react";
-import React from "react";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ccc9dc",
+      main: "#000000",
     },
     secondary: {
-      main: "#324A5F",
+      main: "#ffffff",
     },
   },
 });

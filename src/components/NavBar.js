@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
 import { Button, makeStyles } from "@material-ui/core";
+import logo from "../svg/logo.svg";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -24,16 +25,29 @@ const NavBar = () => {
   };
   return (
     <div style={{ paddingBottom: "10px" }}>
-      <AppBar position="sticky">
-        <Toolbar variant="dense">
-          <Link to="/" className={classes.logo} style={{ textDecoration: "none", color: "white" }}>
-            <Typography>Login & Register</Typography>
-          </Link>
-          <Button color="inherit" onClick={loginout}>
+      <div className="navbar">
+        <Link to="/" className={classes.logo} style={{ textDecoration: "none" }}>
+          <div className="logo">
+            <img src={logo} alt="" />
+            <span>MovieZ</span>
+          </div>
+        </Link>
+        <div className="nav-links">
+          <Button style={{ fontWeight: 600, marginRight: "20px" }} className="nav-button">
+            Discover
+          </Button>
+          <Button style={{ fontWeight: 600, marginRight: "20px" }} className="nav-button">
+            Popular
+          </Button>
+          <Button
+            style={{ fontWeight: 600, marginRight: "20px" }}
+            className="nav-button"
+            onClick={loginout}
+          >
             {sessionStorage.getItem("token") ? "Logout" : "Login"}
           </Button>
-        </Toolbar>
-      </AppBar>
+        </div>
+      </div>
     </div>
   );
 };

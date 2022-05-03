@@ -111,16 +111,14 @@ function SingleMovie() {
               </div>
               <Box className={`${classes.movietext} ${classes.movielasttext}`}>
                 {movieDetails.genres.map((gen) => {
-                  return (
-                    <Chip key={gen.id} label={gen.name} color="primary" className={classes.chip} />
-                  );
+                  return <Chip key={gen.id} label={gen.name} className={classes.chip} />;
                 })}
               </Box>
             </Grid>
           </Grid>
         ) : (
           <Backdrop className={classes.backdrop} open={backdropOpen}>
-            <CircularProgress color="inherit" />
+            <CircularProgress />
           </Backdrop>
         )}
       </Container>

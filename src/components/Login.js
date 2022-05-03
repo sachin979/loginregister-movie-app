@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     flexDirection: "column",
     justifyContent: "center",
-    color: "white",
   },
   right: {
     padding: theme.spacing(2),
@@ -148,7 +147,7 @@ export default function Login() {
                       ></TextField>
                     </Grid>
                     <Grid item>
-                      <Button color="primary" variant="contained" onClick={loginBtn}>
+                      <Button variant="contained" onClick={loginBtn}>
                         Login
                       </Button>
                     </Grid>
@@ -165,7 +164,7 @@ export default function Login() {
               </Grid>
             </Paper>
             <Backdrop className={classes.backdrop} open={backdropOpen}>
-              <CircularProgress color="inherit" />
+              <CircularProgress />
             </Backdrop>
           </Grid>
           <Snackbar
@@ -173,12 +172,7 @@ export default function Login() {
             message="Invalid username/password"
             action={
               <React.Fragment>
-                <IconButton
-                  size="small"
-                  aria-label="close"
-                  color="inherit"
-                  onClick={() => setsnackbarOpen(false)}
-                >
+                <IconButton size="small" aria-label="close" onClick={() => setsnackbarOpen(false)}>
                   <CloseIcon fontSize="small" />
                 </IconButton>
               </React.Fragment>

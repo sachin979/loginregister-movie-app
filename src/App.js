@@ -5,21 +5,21 @@ import { ThemeProvider } from "@material-ui/styles";
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Raleway"].join(","),
+    fontFamily: ["Poppins"].join(","),
   },
   palette: {
     primary: {
-      main: "#0C1821",
-      contrastText: "#CCC9DC",
+      main: "#FFF",
+      contrastText: "#000",
     },
     secondary: {
-      main: "#324A5F",
+      main: "#F00",
     },
     text: {
-      primary: "#0C1821",
+      primary: "#0F0",
     },
     text: {
-      secondary: "#273A50",
+      secondary: "#00F",
     },
   },
 });

@@ -37,12 +37,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    color: "white",
   },
 
-  left: {
-    backgroundColor: "#62a8ac",
-  },
+  left: {},
   right: {
     padding: theme.spacing(2),
   },
@@ -257,7 +254,7 @@ const Register = () => {
                     ></TextField>
                   </Grid>
                   <Grid item>
-                    <Button color="primary" variant="contained" onClick={registerBtn}>
+                    <Button variant="contained" onClick={registerBtn}>
                       Register
                     </Button>
                   </Grid>
@@ -273,7 +270,7 @@ const Register = () => {
               </Grid>
             </Paper>
             <Backdrop className={classes.backdrop} open={backdropOpen}>
-              <CircularProgress color="inherit" />
+              <CircularProgress />
             </Backdrop>
             <Snackbar
               open={snackbarOpen}
@@ -283,7 +280,6 @@ const Register = () => {
                   <IconButton
                     size="small"
                     aria-label="close"
-                    color="inherit"
                     onClick={() => setsnackbarOpen(false)}
                   >
                     <CloseIcon fontSize="small" />
