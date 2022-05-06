@@ -1,10 +1,8 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Button, makeStyles } from "@material-ui/core";
 import logo from "../svg/logo.svg";
+import menu from "../images/menu.png";
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -23,6 +21,14 @@ const NavBar = () => {
       history.push("/login");
     }
   };
+  const [showMenu, setshowMenu] = useState(true);
+  const showMenuFunc = () => {
+    if (showMenu) {
+      setshowMenu(false);
+    } else {
+      setshowMenu(true);
+    }
+  };
   return (
     <div style={{ paddingBottom: "10px" }}>
       <div className="navbar">
@@ -32,7 +38,7 @@ const NavBar = () => {
             <span>MovieZ</span>
           </div>
         </Link>
-        <div className="nav-links">
+        <div className="nav-links" style={showMenu ? { display: "flex" } : { display: "none" }}>
           <Button style={{ fontWeight: 600, marginRight: "20px" }} className="nav-button">
             Discover
           </Button>
@@ -47,6 +53,14 @@ const NavBar = () => {
             {sessionStorage.getItem("token") ? "Logout" : "Login"}
           </Button>
         </div>
+
+        <img
+          onClick={showMenuFunc}
+          className="menu"
+          style={{ width: "25px" }}
+          src={menu}
+          alt="menu"
+        />
       </div>
     </div>
   );

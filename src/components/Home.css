@@ -1,0 +1,44 @@
+.top-content {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+.left-content {
+  position: relative;
+}
+.left-side {
+  flex-basis: 50%;
+}
+.right-side {
+  flex-basis: 50%;
+}
+.right-side img {
+  max-width: 100%;
+}
+.title {
+  position: relative;
+  font-size: 50px;
+  font-weight: 600;
+}
+.svg1 {
+  position: absolute;
+  width: 70%;
+  top: -100px;
+  left: 100px;
+  z-index: -2;
+}
+
+.svg2 {
+  position: absolute;
+  width: 40%;
+  top: 80px;
+  left: 0;
+  z-index: -2;
+}
+.svg3 {
+  position: absolute;
+  width: 35%;
+  top: 150px;
+  right: 0px;
+  z-index: -2;
+}
