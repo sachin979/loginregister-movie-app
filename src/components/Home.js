@@ -1,13 +1,14 @@
 import "../App.css";
 import Button from "@material-ui/core/Button";
 import NavBar from "./NavBar";
-import { makeStyles, Grid } from "@material-ui/core";
+import { makeStyles, Grid, Card } from "@material-ui/core";
 import svg1 from "../svg/svg1.svg";
 import svg2 from "../svg/svg2.svg";
 import svg3 from "../svg/svg3.svg";
 import movie_svg from "../svg/movie_svg.svg";
+import axios from "axios";
 import "./Home.css";
-import { Typography } from "@material-ui/core";
+import { useState, useEffect } from "react";
 const useStyles = makeStyles((theme) => ({
   home: {
     height: "90vh",
@@ -22,6 +23,21 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
   const classes = useStyles();
+  const [trendingData, settrendingData] = useState([]);
+  const trendingApi =
+    "https://api.themoviedb.org/3/trending/all/day?api_key=" + process.env.REACT_APP_API_KEY;
+  const callTrendingApi = async () => {
+    const data = await axios.get(trendingApi);
+    console.log(data.data.results);
+    settrendingData(data.data.results);
+  };
+  useEffect(() => {
+    console.log("calling API");
+    callTrendingApi();
+  }, []);
+  useEffect(() => {
+    console.log(trendingData);
+  }, [trendingData]);
   return (
     <div>
       <NavBar />
@@ -38,6 +54,25 @@ function Home() {
         <div className="right-side">
           <img className="side-svg" src={movie_svg} alt="" />
         </div>
+      </div>
+      <div className="trending">
+        {trendingData ? (
+          trendingData.map((movie) => {
+            var movieUrl = "https://image.tmdb.org/t/p/w185";
+            return (
+              <div className="card">
+                <img
+                  className="trendingImage"
+                  key={movie.id}
+                  src={movieUrl + movie.poster_path}
+                  alt=""
+                />
+              </div>
+            );
+          })
+        ) : (
+          <div>Test</div>
+        )}
       </div>
     </div>
   );

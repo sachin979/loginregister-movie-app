@@ -42,3 +42,53 @@
   right: 0px;
   z-index: -2;
 }
+
+@media only screen and (max-width: 700px) {
+  .top-content {
+    flex-direction: column-reverse;
+    justify-content: center;
+    min-height: 90vh;
+  }
+  .left-side {
+    flex-basis: 100%;
+    width: 100%;
+  }
+  .right-side {
+    flex-basis: 100%;
+  }
+  .svg1 {
+    position: absolute;
+    width: 40%;
+    top: -50px;
+    left: 200px;
+    z-index: -2;
+  }
+  .svg2 {
+    position: absolute;
+    width: 20%;
+    top: 60px;
+    left: 100px;
+    z-index: -2;
+  }
+  .svg3 {
+    position: absolute;
+    width: 30%;
+    top: 100px;
+    right: 50px;
+    z-index: -2;
+  }
+}
+
+/*tRending*/
+
+.trending {
+  display: flex;
+  justify-content: space-around;
+}
+.card {
+  margin: 0 10px;
+  width: 185px;
+  height: 274px;
+}
+.trendingImage {
+}

@@ -38,7 +38,12 @@ const NavBar = () => {
             <span>MovieZ</span>
           </div>
         </Link>
-        <div className="nav-links" style={showMenu ? { display: "flex" } : { display: "none" }}>
+        <div
+          className="nav-links"
+          style={
+            showMenu ? { maxHeight: "130px", display: "flex" } : { maxHeight: "0", display: "none" }
+          }
+        >
           <Button style={{ fontWeight: 600, marginRight: "20px" }} className="nav-button">
             Discover
           </Button>
