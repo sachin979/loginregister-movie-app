@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import NavBar from "./NavBar";
-import bg1 from "../images/bg4.jpg";
+import bg1 from "./images/bg4.jpg";
 import React, { useState } from "react";
 import axios from "axios";
 import IconButton from "@material-ui/core/IconButton";

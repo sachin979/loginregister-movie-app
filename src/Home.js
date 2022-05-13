@@ -1,5 +1,7 @@
-import "../App.css";
+import "./App.css";
 import Button from "@material-ui/core/Button";
+import Routes from "./Routes";
+import Login from "./Login";
 import NavBar from "./NavBar";
 import { makeStyles, Grid, Card } from "@material-ui/core";
 import svg1 from "../svg/svg1.svg";
